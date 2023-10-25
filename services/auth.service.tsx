@@ -1,6 +1,6 @@
 import { authKey } from "@/constants/storageKey";
 import { instance as axiosInstance } from "@/helpers/axios/axiosInstance";
-import { getBaseUrl } from "@/helpers/config/cnvConfig";
+import { getBaseUrl } from "@/helpers/config/envConfig";
 import { decodedToken } from "@/utils/jwt";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 

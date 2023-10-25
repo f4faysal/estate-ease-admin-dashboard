@@ -1,7 +1,9 @@
+import LoginPage from "@/components/ui/auth/rentUser/login";
+
 const SignIn = () => {
   return (
     <div>
-      <p>Sign In</p>
+      <LoginPage />
     </div>
   );
 };
