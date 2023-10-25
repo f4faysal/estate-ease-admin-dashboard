@@ -14,7 +14,12 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   //   return null;
   // }
 
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <Provider store={store}>
+      {/* <Toaster /> */}
+      {children}
+    </Provider>
+  );
 };
 
 export default Providers;
