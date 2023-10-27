@@ -28,7 +28,9 @@ const formSchema = z.object({
 
 const LoginPage = () => {
   const [res, setRes] = useState<any>(null);
+
   const [userLogin] = useUserLoginMutation();
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -41,10 +43,10 @@ const LoginPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      console.log(values);
       const res: any = await userLogin(values);
-
       if (res?.data?.accessToken) {
-        router.push("/dashboard");
+        router.push("/");
         form.reset();
         storeUserInfo({ accessToken: res?.data?.accessToken });
         toast.success("User logged in successfully!");
@@ -55,7 +57,8 @@ const LoginPage = () => {
       }
       // console.log(res);
     } catch (err: any) {
-      console.error(err.message);
+      toast.error(err.message);
+      console.log(err);
     }
   };
 
