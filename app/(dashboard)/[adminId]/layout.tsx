@@ -1,9 +1,12 @@
 "use client";
 
-import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
-// import Navbar from '@/components/navbar'
+import Loading from "@/app/loading";
+import Navbar from "@/components/navbar";
+import { useMyProfileQuery } from "@/redux/api/authApi";
+import { isLoggedIn } from "@/services/auth.service";
 
 export default function DashboardLayout({
   children,
@@ -12,15 +15,27 @@ export default function DashboardLayout({
   children: React.ReactNode;
   params: { adminId: string };
 }) {
-  const { role, userId }: any = getUserInfo();
+  const { adminId } = params;
+  const { data, isLoading } = useMyProfileQuery({});
   const isLogin = isLoggedIn();
+  const userId = data?._id;
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (adminId !== userId) {
+    toast.error("your id is not matched to this page!");
+    redirect("/");
+  }
+
   if (!isLogin) {
     redirect("/sign-in");
   }
 
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       {children}
     </>
   );

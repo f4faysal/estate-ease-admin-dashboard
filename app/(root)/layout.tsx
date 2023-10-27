@@ -15,7 +15,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       redirect("/sign-in");
     }
     if (role === "Admin" || role === "Super_Admin") {
-      redirect(`/${userId}`);
+      window.location.assign(`/${userId}`);
     } else {
       removeUserInfo(authKey);
       toast.error("You are not authorized to access this page!");
