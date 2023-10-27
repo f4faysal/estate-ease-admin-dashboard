@@ -16,6 +16,7 @@ const StoreModal = () => {
   const handleCloseModal = () => {
     dispatch(closeModal());
   };
+
   return (
     <Modal
       title="Creat Store"

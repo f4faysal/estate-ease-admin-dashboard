@@ -1,34 +1,33 @@
 "use client";
-import { isLoggedIn } from "@/services/auth.service";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 // import Contents from "@/components/ui/Contents";
 // import SideBar from "@/components/ui/Sidebar";
 // import { isLoggedIn } from "@/services/auth.service";
 // import { Layout, Row, Space, Spin } from "antd";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { PuffLoader } from "react-spinners";
+import Loading from "../loading";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const userLoggedIn = isLoggedIn();
-  const router = useRouter();
+  const { role, userId }: any = getUserInfo();
+  // const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  console.log(userId);
+
   useEffect(() => {
-    if (!userLoggedIn) {
-      router.push("/sign-in");
+    if (!userId) {
+      redirect("/sign-in");
+    }
+    if (userId) {
+      redirect(`/${role}-${userId}`);
     }
     setIsLoading(true);
-  }, [router, isLoading, userLoggedIn]);
+  }, [userId, role, isLoading, userLoggedIn]);
 
   if (!isLoading) {
-    return (
-      <div className="flex items-center justify-center h-full w-full">
-        {/* <Space>
-          <Spin tip="Loading" size="large"></Spin>
-        </Space> */}
-        <PuffLoader color="#36d7b7" />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

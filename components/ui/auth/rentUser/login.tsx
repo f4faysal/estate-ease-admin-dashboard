@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   id: z.string().min(7, { message: "User Id must be at least 7 characters" }),
@@ -41,12 +42,15 @@ const LoginPage = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const res: any = await userLogin(values);
-      console.log(res);
+
       if (res?.data?.accessToken) {
         router.push("/dashboard");
+        form.reset();
         storeUserInfo({ accessToken: res?.data?.accessToken });
+        toast.success("User logged in successfully!");
         // message.success("User logged in successfully!");
       } else {
+        toast.error(res?.error);
         setRes(res?.error);
       }
       // console.log(res);
