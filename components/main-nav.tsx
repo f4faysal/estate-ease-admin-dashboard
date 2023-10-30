@@ -4,54 +4,44 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
+import { getUserInfo } from "@/services/auth.service";
 
 export function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
+  const { role }: any = getUserInfo();
+
   const pathname = usePathname();
   const params = useParams();
 
-  const routes = [
+  const routesSuperAdmin = [
     {
-      href: `/${params.storeId}`,
+      href: `/${params.adminId}`,
       label: "Overview",
-      active: pathname === `/${params.storeId}`,
+      active: pathname === `/${params.adminId}`,
     },
     {
-      href: `/${params.storeId}/billboards`,
-      label: "Billboards",
-      active: pathname === `/${params.storeId}/billboards`,
+      href: `/${params.adminId}/superAdmin/manage-admins`,
+      label: "Manage Admins",
+      active: pathname === `/${params.adminId}/superAdmin/manage-admins`,
     },
     {
-      href: `/${params.storeId}/categories`,
-      label: "Categories",
-      active: pathname === `/${params.storeId}/categories`,
+      href: `/${params.adminId}/superAdmin/manage-users`,
+      label: "Manage Users",
+      active: pathname === `/${params.adminId}/superAdmin/manage-users`,
+    },
+  ];
+  const routesAdmin = [
+    {
+      href: `/${params.adminId}/admin`,
+      label: "Overview",
+      active: pathname === `/${params.adminId}/admin`,
     },
     {
-      href: `/${params.storeId}/sizes`,
-      label: "Sizes",
-      active: pathname === `/${params.storeId}/sizes`,
-    },
-    {
-      href: `/${params.storeId}/colors`,
-      label: "Colors",
-      active: pathname === `/${params.storeId}/colors`,
-    },
-    {
-      href: `/${params.storeId}/products`,
-      label: "Products",
-      active: pathname === `/${params.storeId}/products`,
-    },
-    {
-      href: `/${params.storeId}/orders`,
-      label: "Orders",
-      active: pathname === `/${params.storeId}/orders`,
-    },
-    {
-      href: `/${params.storeId}/settings`,
+      href: `/${params.adminId}/admin/settings`,
       label: "Settings",
-      active: pathname === `/${params.storeId}/settings`,
+      active: pathname === `/${params.adminId}/admin/settings`,
     },
   ];
 
@@ -60,20 +50,39 @@ export function MainNav({
       className={cn("flex items-center space-x-4 lg:space-x-6", className)}
       {...props}
     >
-      {routes.map((route) => (
-        <Link
-          key={route.href}
-          href={route.href}
-          className={cn(
-            "text-sm font-medium transition-colors hover:text-primary",
-            route.active
-              ? "text-black dark:text-white"
-              : "text-muted-foreground"
-          )}
-        >
-          {route.label}
-        </Link>
-      ))}
+      {role === "Super_Admin" ? (
+        routesSuperAdmin.map((route) => (
+          <Link
+            key={route.href}
+            href={route.href}
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary",
+              route.active
+                ? "text-black dark:text-white"
+                : "text-muted-foreground"
+            )}
+          >
+            {route.label}
+          </Link>
+        ))
+      ) : role === "Admin" ? (
+        routesAdmin.map((route) => (
+          <Link
+            key={route.href}
+            href={route.href}
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary",
+              route.active
+                ? "text-black dark:text-white"
+                : "text-muted-foreground"
+            )}
+          >
+            {route.label}
+          </Link>
+        ))
+      ) : (
+        <></>
+      )}
     </nav>
   );
 }

@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface IUseStoreModalStore {
+interface IUseadminModalStore {
   isOpen: boolean;
 }
 
-const initialState: IUseStoreModalStore = {
+const initialState: IUseadminModalStore = {
   isOpen: false,
 };
 
 const modalSlice = createSlice({
-  name: "storeModal",
+  name: "adminModal",
   initialState,
   reducers: {
     openModal: (state) => {

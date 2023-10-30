@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import Loading from "@/app/loading";
 import Navbar from "@/components/navbar";
+import AdminModal from "@/components/reusable-ui/admin-modal";
 import { useMyProfileQuery } from "@/redux/api/authApi";
 import { isLoggedIn } from "@/services/auth.service";
 
@@ -37,6 +38,7 @@ export default function DashboardLayout({
     <>
       <Navbar />
       {children}
+      <AdminModal />
     </>
   );
 }

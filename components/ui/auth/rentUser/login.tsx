@@ -59,15 +59,16 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
-      <div className="w-[80%]  md:w-[280px] h-auto  border  rounded-md px-4 py-8 grid grid-flow-row  auto-rows-max gap-2">
+    <div className="w-screen bg-[#f8fafc] h-screen flex items-center justify-center">
+      <div className="w-[80%] bg-white shadow-lg  md:w-[300px] h-auto  border  rounded-md px-4 py-8 grid grid-flow-row  auto-rows-max gap-2">
         <div className="h-20 flex flex-col justify-center items-center gap-2">
-          <h1 className="text-3xl font-bold text-center">Sign in</h1>
-          <p className="text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-center">Sign in</h1>
+          <h1 className="text-base font-bold text-center">Estate Ease Admin</h1>
+          <p className="text-xs text-slate-400">
             Sign in to access your account
           </p>
         </div>
-        <p className="text-red-600 text-sm">{res}</p>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -79,7 +80,7 @@ const LoginPage = () => {
                   <FormControl>
                     <Input {...field} placeholder="Your User Id" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs" />
                 </FormItem>
               )}
             />
@@ -96,22 +97,23 @@ const LoginPage = () => {
                       placeholder="Your Password"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs" />
                 </FormItem>
               )}
             />
-            <div className="text-right">
+            <div className="text-right mt-1">
               <a
                 href="#"
-                className="text-slate-400 text-sm hover:text-slate-800"
+                className="text-slate-400 text-xs hover:text-slate-800"
               >
                 Forgot Password?
               </a>
             </div>
-            <Button type="submit" className="w-full mt-1">
+            <Button type="submit" className="w-full mt-2">
               Login
             </Button>
           </form>
+          <p className="text-red-600 text-sm">{res}</p>
         </Form>
 
         <div className="flex justify-center items-center gap-2">
