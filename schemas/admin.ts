@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const adminSchema = z.object({
+export const adminSchema = z.object({
   name: z.object({
     firstName: z.string().min(1),
     middleName: z.string().optional(),
@@ -12,8 +12,7 @@ const adminSchema = z.object({
   contactNo: z.string().min(11),
   emergencyContactNo: z.string(),
   designation: z.string().min(1),
-  profileImage: z.string().optional(),
-  bloodGroup: z.string(),
+  profileImage: z.string().url(),
 });
 
 export const adminFormSchema = z.object({

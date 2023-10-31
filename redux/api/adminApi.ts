@@ -20,7 +20,15 @@ export const adminApi = baseApi.injectEndpoints({
 
       providesTags: [tagTypes.admin],
     }),
+
+    admin: build.query({
+      query: (id) => ({
+        url: `${Admin_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.admin],
+    }),
   }),
 });
 
-export const { useAdminsQuery } = adminApi;
+export const { useAdminsQuery, useAdminQuery } = adminApi;

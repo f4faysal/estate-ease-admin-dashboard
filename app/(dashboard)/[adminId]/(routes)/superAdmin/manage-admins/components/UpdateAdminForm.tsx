@@ -20,34 +20,35 @@ import FormHading from "@/components/ui/form-hading";
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useCreateAdminMutation } from "@/redux/api/usersApi";
-import { adminFormSchema } from "@/schemas/admin";
+import { adminSchema } from "@/schemas/admin";
 
-const CreateAdmin = () => {
-  const [createAdmin] = useCreateAdminMutation();
+interface UpdateAdminProps {
+  initialData: any | null;
+}
 
-  const form = useForm<z.infer<typeof adminFormSchema>>({
-    resolver: zodResolver(adminFormSchema),
-    defaultValues: {},
+const UpdateAdminFrom: React.FC<UpdateAdminProps> = ({ initialData }) => {
+  const form = useForm<z.infer<typeof adminSchema>>({
+    resolver: zodResolver(adminSchema),
+    defaultValues: initialData || {},
   });
 
-  const onSubmit = async (values: z.infer<typeof adminFormSchema>) => {
+  const onSubmit = async (values: z.infer<typeof adminSchema>) => {
     try {
       console.log(values);
-      const res = await createAdmin(values);
-      console.log(res);
+
       form.reset();
-      toast.success("Admin created successfully");
+      toast.success("Admin Updated successfully");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
     }
   };
+
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <Heading
-        title="Create Admin"
-        description="Add a new admin to your organization."
+        title="Edit Admin"
+        description="Update admin information and manage admin permissions"
       />
       <Separator />
       <Container>
@@ -62,7 +63,7 @@ const CreateAdmin = () => {
                     <div className="">
                       <FormField
                         control={form.control}
-                        name="admin.name.firstName"
+                        name="name.firstName"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>First Name</FormLabel>
@@ -81,7 +82,7 @@ const CreateAdmin = () => {
                     <div className="">
                       <FormField
                         control={form.control}
-                        name="admin.name.middleName"
+                        name="name.middleName"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Middle Name</FormLabel>
@@ -100,7 +101,7 @@ const CreateAdmin = () => {
                     <div className=".">
                       <FormField
                         control={form.control}
-                        name="admin.name.lastName"
+                        name="name.lastName"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Last Name</FormLabel>
@@ -121,13 +122,13 @@ const CreateAdmin = () => {
                     <div className=".">
                       <FormField
                         control={form.control}
-                        name="admin.email"
+                        name="email"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                               <Input
-                                // disabled={loading}
+                                disabled={true}
                                 placeholder="exmpole@gmail.com"
                                 type="email"
                                 {...field}
@@ -141,13 +142,13 @@ const CreateAdmin = () => {
                     <div className=".">
                       <FormField
                         control={form.control}
-                        name="admin.dateOfBirth"
+                        name="dateOfBirth"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Det of Birth</FormLabel>
                             <FormControl>
                               <Input
-                                // disabled={loading}
+                                disabled={true}
                                 placeholder="Select Date"
                                 {...field}
                               />
@@ -162,13 +163,13 @@ const CreateAdmin = () => {
                     <div className=".">
                       <FormField
                         control={form.control}
-                        name="admin.contactNo"
+                        name="contactNo"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Contact No</FormLabel>
                             <FormControl>
                               <Input
-                                // disabled={loading}
+                                disabled={true}
                                 placeholder="Contact No"
                                 {...field}
                               />
@@ -181,7 +182,7 @@ const CreateAdmin = () => {
                     <div className=".">
                       <FormField
                         control={form.control}
-                        name="admin.emergencyContactNo"
+                        name="emergencyContactNo"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Emergency Contact No</FormLabel>
@@ -199,11 +200,10 @@ const CreateAdmin = () => {
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-8">
-                    
                     <div className="">
                       <FormField
                         control={form.control}
-                        name="admin.gender"
+                        name="gender"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Gender</FormLabel>
@@ -224,31 +224,32 @@ const CreateAdmin = () => {
                 {/* Admin info */}
                 <div className="border mt-3 px-3 py-5 rounded-md shadow">
                   <FormHading title="Admin Information" />
-                  <div className="mb-4">
-                    <FormField
-                      control={form.control}
-                      name="admin.profileImage"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Profile image</FormLabel>
-                          <FormControl>
-                            <ImageUpload
-                              value={field.value ? [field.value] : []}
-                              // disabled={loading}
-                              onChange={(url) => field.onChange(url)}
-                              onRemove={() => field.onChange("")}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+
                   <div className="grid grid-cols-2 gap-8">
+                    <div className="">
+                      <FormField
+                        control={form.control}
+                        name="profileImage"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Profile image</FormLabel>
+                            <FormControl>
+                              <ImageUpload
+                                value={field.value ? [field.value] : []}
+                                // disabled={loading}
+                                onChange={(url) => field.onChange(url)}
+                                onRemove={() => field.onChange("")}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                     <div className=".">
                       <FormField
                         control={form.control}
-                        name="admin.designation"
+                        name="designation"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Designation</FormLabel>
@@ -264,53 +265,11 @@ const CreateAdmin = () => {
                         )}
                       />
                     </div>
-                    <div className=".">
-                      <FormField
-                        control={form.control}
-                        name="nidNumber"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>National Identity Card No</FormLabel>
-                            <FormControl>
-                              <Input
-                                // disabled={loading}
-                                placeholder="National Identity Card No"
-                                type="number"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-8">
-                    <div className=".">
-                      <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Password</FormLabel>
-                            <FormControl>
-                              <Input
-                                // disabled={loading}
-                                placeholder="Password"
-                                {...field}
-                                type="password"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
                   </div>
                 </div>
 
                 <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                  <Button type="submit">Create</Button>
+                  <Button type="submit">Save changes</Button>
                 </div>
               </form>
             </Form>
@@ -321,4 +280,4 @@ const CreateAdmin = () => {
   );
 };
 
-export default CreateAdmin;
+export default UpdateAdminFrom;

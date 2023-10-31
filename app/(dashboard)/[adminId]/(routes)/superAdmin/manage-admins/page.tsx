@@ -1,5 +1,11 @@
+import { Metadata } from "next";
 import AdminTable from "./components/admin-table";
 import CreateAdminForm from "./components/create-admin-form";
+
+export const metadata: Metadata = {
+  title: "Manage Admins",
+  description: "Manage Admins",
+};
 
 const ManageAdmins = () => {
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Cloud,
   CreditCard,
@@ -15,6 +17,7 @@ import {
   Users,
 } from "lucide-react";
 
+import Loading from "@/app/loading";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,27 +33,41 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authKey } from "@/constants/storageKey";
+import { useMyProfileQuery } from "@/redux/api/authApi";
+import { setProfile } from "@/redux/features/profile/profileSlice";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const Profile = () => {
-  const params = useParams();
+  const dispatch = useDispatch();
+  const { data, isLoading } = useMyProfileQuery({});
+  const user = useSelector((state: any) => state.user.profile);
 
-  console.log(params);
+  useEffect(() => {
+    dispatch(setProfile(data));
+  }, [data, dispatch]);
+
+  const params = useParams();
 
   const handelLogOut = () => {
     localStorage.removeItem(authKey);
     window.location.href = "/sign-in";
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={user?.admin?.profileImage} />
+            <AvatarFallback>AD</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
 

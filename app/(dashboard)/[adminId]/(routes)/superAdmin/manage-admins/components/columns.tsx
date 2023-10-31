@@ -1,8 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-
-// import { CellAction } from "./cell-action";
+import { CellAction } from "./cell-action";
 
 export type AdminColumn = {
   id: string;
@@ -49,24 +48,12 @@ export const columns: ColumnDef<AdminColumn>[] = [
     accessorKey: "designation",
     header: "Designation",
   },
-  //   {
-  //     accessorKey: "nidNumber",
-  //     header: "NID Number",
-  //   },
-  //   {
-  //     accessorKey: "role",
-  //     header: "Role",
-  //   },
-  //   {
-  //     accessorKey: "nidVerified",
-  //     header: "NID Verified",
-  //   },
   {
     accessorKey: "createdAt",
     header: "Created At",
   },
-  //   {
-  //     id: "actions",
-  //     cell: ({ row }) => <CellAction data={row.original} />,
-  //   },
+  {
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
 ];
