@@ -7,16 +7,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { closeModal, openModal } from "@/redux/features/modal/modalSlice";
 
@@ -24,7 +14,13 @@ const formSchema = z.object({
   name: z.string().min(1),
 });
 
-const AdminModal = () => {
+interface ModalProps {
+  children: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+const AdminModal: React.FC<ModalProps> = ({ children, title, description }) => {
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state: any) => state.modal.isOpen);
 
@@ -54,48 +50,12 @@ const AdminModal = () => {
 
   return (
     <Modal
-      title="Create store"
-      description="Add a new store to manage products and categories."
+      title={title}
+      description={description}
       isOpen={isModalOpen}
       onClose={handleCloseModal}
     >
-      <div>
-        <div className="space-y-4 py-2 pb-4">
-          <div className="space-y-2">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          // disabled={loading}
-                          placeholder="E-Commerce"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                  <Button
-                    // disabled={loading}
-                    variant="outline"
-                    onClick={handleCloseModal}
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit">Continue</Button>
-                </div>
-              </form>
-            </Form>
-          </div>
-        </div>
-      </div>
+      {children}
     </Modal>
   );
 };
