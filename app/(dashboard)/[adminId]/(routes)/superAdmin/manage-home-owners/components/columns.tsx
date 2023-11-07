@@ -1,10 +1,9 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
 import { CellAction } from "./cell-action";
 
-export type AdminColumn = {
+export type RentUserColumn = {
   id: string;
   name: string;
   email: string;
@@ -12,23 +11,15 @@ export type AdminColumn = {
   contactNo: string;
   emergencyNo: string;
   gender: string;
-  designation: string;
+  bloodGroup: string;
+  presentAddress: string;
   createdAt: string;
 };
 
-export const columns: ColumnDef<AdminColumn>[] = [
+export const columns: ColumnDef<RentUserColumn>[] = [
   {
     accessorKey: "id",
-    header: ({ column }) => (
-      <div
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="flex items-center cursor-pointer"
-      >
-        ID
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </div>
-    ),
-    cell: ({ row }) => <div className="text-red-600">{row.original.id}</div>,
+    header: "ID",
   },
   {
     accessorKey: "name",
@@ -54,9 +45,10 @@ export const columns: ColumnDef<AdminColumn>[] = [
     accessorKey: "gender",
     header: "Gender",
   },
+  { accessorKey: "bloodGroup", header: "Blood Group" },
   {
-    accessorKey: "designation",
-    header: "Designation",
+    accessorKey: "presentAddress",
+    header: "Present Address",
   },
   {
     accessorKey: "createdAt",

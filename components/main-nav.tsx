@@ -27,9 +27,14 @@ export function MainNav({
       active: pathname === `/${params.adminId}/superAdmin/manage-admins`,
     },
     {
-      href: `/${params.adminId}/superAdmin/manage-users`,
-      label: "Manage Users",
-      active: pathname === `/${params.adminId}/superAdmin/manage-users`,
+      href: `/${params.adminId}/superAdmin/manage-rent-users`,
+      label: "Manage Rent Users",
+      active: pathname === `/${params.adminId}/superAdmin/manage-rent-users`,
+    },
+    {
+      href: `/${params.adminId}/superAdmin/manage-home-owners`,
+      label: "Manage Home Owner",
+      active: pathname === `/${params.adminId}/superAdmin/manage-home-owners`,
     },
   ];
   const routesAdmin = [
