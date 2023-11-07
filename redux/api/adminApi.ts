@@ -20,7 +20,7 @@ export const adminApi = baseApi.injectEndpoints({
 
       providesTags: [tagTypes.admin],
     }),
-
+    // Admin
     admin: build.query({
       query: (id) => ({
         url: `${Admin_URL}/${id}`,
@@ -28,7 +28,17 @@ export const adminApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.admin],
     }),
+    // update Admin
+    updateAdmin: build.mutation({
+      query: (paylod) => ({
+        url: `${Admin_URL}/${paylod.id}`,
+        method: "PATCH",
+        data: paylod.data,
+      }),
+      invalidatesTags: [tagTypes.admin],
+    }),
   }),
 });
 
-export const { useAdminsQuery, useAdminQuery } = adminApi;
+export const { useAdminsQuery, useAdminQuery, useUpdateAdminMutation } =
+  adminApi;

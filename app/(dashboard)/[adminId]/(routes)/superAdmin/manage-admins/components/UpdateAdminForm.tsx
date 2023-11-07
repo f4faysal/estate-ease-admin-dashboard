@@ -20,6 +20,7 @@ import FormHading from "@/components/ui/form-hading";
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useUpdateAdminMutation } from "@/redux/api/adminApi";
 import { adminSchema } from "@/schemas/admin";
 
 interface UpdateAdminProps {
@@ -27,17 +28,25 @@ interface UpdateAdminProps {
 }
 
 const UpdateAdminFrom: React.FC<UpdateAdminProps> = ({ initialData }) => {
+  const [updateAdmin] = useUpdateAdminMutation();
+
   const form = useForm<z.infer<typeof adminSchema>>({
     resolver: zodResolver(adminSchema),
     defaultValues: initialData || {},
   });
 
   const onSubmit = async (values: z.infer<typeof adminSchema>) => {
+    const paylod = {
+      id: initialData?.id,
+      data: values,
+    };
     try {
-      console.log(values);
-
-      form.reset();
-      toast.success("Admin Updated successfully");
+      const res: any = await updateAdmin(paylod);
+      if (res?.data) {
+        toast.success("Admin Updated successfully");
+      } else {
+        toast.error(res?.error);
+      }
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
