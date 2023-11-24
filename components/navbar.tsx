@@ -9,8 +9,8 @@ const Navbar = () => {
       <div className="flex h-16 items-center px-4">
         <Link href="/">
           <Image
-            src="/estate-ease-logo.png"
-            width={80}
+            src="/estate-ease-dashboard.png"
+            width={70}
             height={100}
             alt="Estate ease logo"
           />

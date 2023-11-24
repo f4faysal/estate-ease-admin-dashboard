@@ -109,6 +109,14 @@ const MyProfile = () => {
                       <Badge variant="destructive">Not Verified</Badge>
                     )}
                   </li>
+                  <li className="flex items-center gap-4">
+                    <p className=" text-sm leading-normal text-blue-gray-900 font-semibold capitalize">
+                      Role:
+                    </p>
+                    <p className=" text-sm leading-normal font-normal text-blue-gray-500">
+                      {data?.role}
+                    </p>
+                  </li>
                 </ul>
               </div>
             </div>
