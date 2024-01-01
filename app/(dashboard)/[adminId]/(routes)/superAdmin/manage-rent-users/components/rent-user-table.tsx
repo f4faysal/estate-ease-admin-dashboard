@@ -9,6 +9,8 @@ const RentUserTable = () => {
   const { data, isLoading } = useRentUsersQuery({});
   const { rentUsers, meta } = data || {};
 
+  console.log(data);
+
   //   @ts-ignore
   const allAdmin: RentUserColumn[] = rentUsers?.map((item: any) => ({
     id: item?.id,

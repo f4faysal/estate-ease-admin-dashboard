@@ -1,7 +1,6 @@
 "use client";
 
-import axios from "axios";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { BadgeCheck, Copy, Edit, MoreHorizontal } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -15,16 +14,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { AlertModal } from "@/components/reusable-ui/alert-modal";
+import { useGetUsersQuery, useUpdateUserMutation } from "@/redux/api/usersApi";
 import { getUserInfo } from "@/services/auth.service";
 import { AdminColumn } from "./columns";
+import { VerifiedModal } from "@/components/reusable-ui/VarifideModal";
 
 interface CellActionProps {
   data: AdminColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({ data: user }) => {
   const { userId }: any = getUserInfo();
+
+  const { data, isLoading } = useGetUsersQuery({});
+
+  const [UpdateUser] = useUpdateUserMutation();
+
+  const findUser = data?.find((item: any) => item.id === user.id);
 
   const router = useRouter();
   const params = useParams();
@@ -33,10 +39,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onConfirm = async () => {
     try {
+      await UpdateUser({
+        id: user.id,
+        data: {
+          nidVerified: true,
+        },
+      });
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      toast.success("Billboard deleted.");
-      router.refresh();
+      window.location.reload();
+      toast.success("User verified successfully.");
     } catch (error) {
       toast.error(
         "Make sure you removed all categories using this billboard first."
@@ -54,7 +65,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-      <AlertModal
+      <VerifiedModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
@@ -74,14 +85,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${userId}/superAdmin/manage-admins/${data.id}`)
+              router.push(`/${userId}/superAdmin/manage-rent-users/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="mr-2 h-4 w-4" /> Delete
-          </DropdownMenuItem>
+          {findUser?.nidVerified ? (
+            <></>
+          ) : (
+            <DropdownMenuItem onClick={() => setOpen(true)}>
+              <BadgeCheck className="mr-2 h-4 w-4" /> Verified NID
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </>
