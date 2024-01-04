@@ -126,7 +126,7 @@ const MyProfile = () => {
               </h6>
               <div className="p-0">
                 <p className=" text-sm leading-normal font-normal text-blue-gray-500">
-                  Hi, I'm Alec Thompson, Decisions: If you can't decide, the
+                  Hi, I`m Alec Thompson, Decisions: If you can`t decide, the
                   answer is no. If two equally difficult paths, choose the one
                   more painful in the short term (pain avoidance is creating an
                   illusion of equality).

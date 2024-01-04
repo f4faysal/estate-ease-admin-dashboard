@@ -1,6 +1,5 @@
 "use client";
 
-import AdminModal from "@/components/reusable-ui/admin-modal";
 import { Button } from "@/components/ui/button";
 import { openModal } from "@/redux/features/modal/modalSlice";
 import toast from "react-hot-toast";
@@ -25,7 +24,7 @@ const SuperAdminDashboard = () => {
   return (
     <div>
       <p>Hello admin dashboard</p>
-      <AdminModal />
+      {/* <AdminModal /> */}
       <Button onClick={() => dispatch(openModal())}>Open Modal</Button>
       <Button onClick={() => toast.success("User logged in successfully!")}>
         Toast

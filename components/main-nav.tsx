@@ -36,6 +36,11 @@ export function MainNav({
       label: "Manage Home Owner",
       active: pathname === `/${params.adminId}/superAdmin/manage-home-owners`,
     },
+    {
+      href: `/${params.adminId}/superAdmin/manage-properties`,
+      label: "Manage Properties",
+      active: pathname === `/${params.adminId}/superAdmin/manage-properties`,
+    },
   ];
   const routesAdmin = [
     {
@@ -54,9 +59,9 @@ export function MainNav({
       active: pathname === `/${params.adminId}/admin/manage-home-owners`,
     },
     {
-      href: `/${params.adminId}/admin/settings`,
-      label: "Settings",
-      active: pathname === `/${params.adminId}/admin/settings`,
+      href: `/${params.adminId}/admin/manage-properties`,
+      label: "Manage Properties",
+      active: pathname === `/${params.adminId}/admin/manage-properties`,
     },
   ];
 
