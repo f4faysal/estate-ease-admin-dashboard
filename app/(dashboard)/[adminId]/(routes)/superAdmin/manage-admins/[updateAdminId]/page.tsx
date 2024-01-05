@@ -8,6 +8,7 @@ const UpdateAdmin = ({ params }: { params: { updateAdminId: string } }) => {
   const { data, isLoading } = useAdminQuery(params.updateAdminId);
 
   console.log(data);
+  console.log(params);
 
   if (isLoading) {
     return <Loading />;

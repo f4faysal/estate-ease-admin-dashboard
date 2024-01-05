@@ -14,10 +14,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { VerifiedModal } from "@/components/reusable-ui/VarifideModal";
 import { useGetUsersQuery, useUpdateUserMutation } from "@/redux/api/usersApi";
 import { getUserInfo } from "@/services/auth.service";
 import { AdminColumn } from "./columns";
-import { VerifiedModal } from "@/components/reusable-ui/VarifideModal";
 
 interface CellActionProps {
   data: AdminColumn;
@@ -60,7 +60,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data: user }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to clipboard.");
+    toast.success(`"Billboard ID copied to clipboard." ${id}`);
   };
 
   return (
@@ -80,12 +80,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data: user }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
+          <DropdownMenuItem onClick={() => onCopy(user?.id)}>
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${userId}/superAdmin/manage-rent-users/${data.id}`)
+              router.push(`/${userId}/superAdmin/manage-admins/${user?.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" /> Update
