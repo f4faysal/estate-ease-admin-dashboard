@@ -79,12 +79,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data: user }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
+          <DropdownMenuItem onClick={() => onCopy(user.id)}>
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${userId}/superAdmin/manage-rent-users/${data.id}`)
+              router.push(`/${userId}/superAdmin/manage-home-owners/${user.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" /> Update

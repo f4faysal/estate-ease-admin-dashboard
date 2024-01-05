@@ -20,7 +20,7 @@ import FormHading from "@/components/ui/form-hading";
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useUpdateAdminMutation } from "@/redux/api/adminApi";
+import { useUpdatehomeOwnerMutation } from "@/redux/api/homeOwnersApi";
 import { adminSchema } from "@/schemas/admin";
 
 interface UpdateAdminProps {
@@ -28,7 +28,7 @@ interface UpdateAdminProps {
 }
 
 const UpdateAdminFrom: React.FC<UpdateAdminProps> = ({ initialData }) => {
-  const [updateAdmin] = useUpdateAdminMutation();
+  const [updateAdmin] = useUpdatehomeOwnerMutation();
 
   const form = useForm<z.infer<typeof adminSchema>>({
     resolver: zodResolver(adminSchema),
@@ -43,7 +43,7 @@ const UpdateAdminFrom: React.FC<UpdateAdminProps> = ({ initialData }) => {
     try {
       const res: any = await updateAdmin(paylod);
       if (res?.data) {
-        toast.success("Admin Updated successfully");
+        toast.success("Home Owner Updated successfully");
       } else {
         toast.error(res?.error);
       }
