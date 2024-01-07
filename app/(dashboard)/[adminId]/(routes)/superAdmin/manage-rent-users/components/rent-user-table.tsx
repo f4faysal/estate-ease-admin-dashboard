@@ -26,7 +26,7 @@ const RentUserTable = () => {
   }));
 
   if (isLoading) {
-    // eslint-disable-next-line react/jsx-no-undef
+    // eslint-disable-next-line
     return <Loading />;
   }
 
