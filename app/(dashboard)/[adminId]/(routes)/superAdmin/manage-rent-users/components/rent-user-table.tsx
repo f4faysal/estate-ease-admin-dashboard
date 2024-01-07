@@ -27,6 +27,7 @@ const RentUserTable = () => {
 
   if (isLoading) {
     // eslint-disable-next-line
+    // @ts-ignore
     return <Loading />;
   }
 
