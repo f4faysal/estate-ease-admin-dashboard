@@ -39,7 +39,7 @@ export const columns: ColumnDef<RentUserColumn>[] = [
   },
   {
     accessorKey: "emergencyNo",
-    header: "Emergency Phone",
+    header: "NID No",
   },
   {
     accessorKey: "gender",
