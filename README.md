@@ -11,6 +11,7 @@ yarn dev
 # or
 pnpm dev
 # or
+$or
 bun dev
 ```
 
